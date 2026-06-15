@@ -352,6 +352,7 @@ def build_instance_policy_or_template(
   ipt = batch_v1.AllocationPolicy.InstancePolicyOrTemplate()
   ipt.policy = instance_policy
   ipt.install_gpu_drivers = install_gpu_drivers
+  ipt.install_ops_agent = True
   return ipt
 
 
