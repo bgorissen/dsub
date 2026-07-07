@@ -553,8 +553,13 @@ class GoogleBatchJobProvider(google_utils.GoogleJobProviderBase):
       mount_path = os.path.join(_VOLUME_MOUNT_POINT, gcs_mount.docker_path)
       # Normalize mount path because API does not allow trailing slashes
       normalized_mount_path = os.path.normpath(mount_path)
+      mount_options = ['-o ro']
+      bucket_name = gcs_mount.value[len('gs://') :]
+      if '@' in bucket_name:
+          mount_options.append('--billing-project ' + bucket_name.split('@')[0])
+          bucket_name = bucket_name.split('@')[1]
       gcs_volume = google_batch_operations.build_gcs_volume(
-          gcs_mount.value[len('gs://') :], normalized_mount_path, ['-o ro']
+          bucket_name, normalized_mount_path, mount_options
       )
       gcs_volumes.append(gcs_volume)
     return gcs_volumes

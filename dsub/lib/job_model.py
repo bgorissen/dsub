@@ -117,7 +117,7 @@ def validate_bucket_name(bucket):
     raise ValueError(
         'Invalid bucket path "%s". Must start with "gs://".' % bucket)
   bucket_name = bucket[len('gs://'):]
-  if not re.search(r'^\w[\w_\.-]{1,61}\w$', bucket_name):
+  if not re.search(r'^([a-z0-9-]{6,30}@)?\w[\w_\.-]{1,61}\w$', bucket_name):
     raise ValueError('Invalid bucket name: %s' % bucket)
 
 
