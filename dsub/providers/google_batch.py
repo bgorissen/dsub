@@ -818,7 +818,7 @@ class GoogleBatchJobProvider(google_utils.GoogleJobProviderBase):
 
     boot_disk = google_batch_operations.build_persistent_disk(
         size_gb=max(boot_disk_size, job_model.LARGE_BOOT_DISK_SIZE),
-        disk_type=job_model.DEFAULT_DISK_TYPE,
+        disk_type=job_resources.disk_type or job_model.DEFAULT_DISK_TYPE,
         image=boot_disk_image,
     )
     disk = google_batch_operations.build_persistent_disk(
